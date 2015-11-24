@@ -1,0 +1,14 @@
+{% for post in posts %}
+<div class="blog-post">
+	<div class="blog-head">
+    <h2 class="blog-post-title"><a href="{{url_for('main.post',id=post.id)}}">{{post.title}}</a></h2>
+    <p class="blog-post-date">{{ moment(post.timestamp).format('MMMM Do YYYY')}}</p>
+     <p class="blog-post-meta"> Post by<a href="#">{{post.author.email}}</a></p>
+     </div>
+	{% if post.body_html %}
+	{{post.body_html | safe }}
+	{% else %}
+	{{ post.body}}
+	{% endif %}
+</div><!-- /.blog-post -->
+{% endfor %}

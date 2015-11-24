@@ -1,0 +1,104 @@
+{% extends "bootstrap/base.html" %}
+{% block head%}
+{{super()}}
+<link rel ="shortcut icon" href="{{url_for('static',filename='F_icon.png')}}"
+  type = "image/x-icon">
+<link rel ="icon" href="{{url_for('static',filename='F_icon.png')}}"
+  type = "image/x-icon">
+<link rel="stylesheet" href="{{url_for('static',filename='blog.css')}}">
+{% endblock %}
+{% block title%}Luna-Blog{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{url_for('main.index')}}">Luna-Blog</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul id="navbar-link" class="nav navbar-nav">
+            <li><a href="{{url_for('main.index')}}">Home</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+{% for category,message in get_flashed_messages(with_categories=true) %}
+<div class="alert {%if category=='message' %}alert-info{% else %}alert-{{category}}{% endif%} alert-dismissible fade in" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  {{message}}
+</div>
+{% endfor %}
+ <div class="blog-header">
+      <div class="row">
+      {%block page_content%} {% endblock %}
+
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          <div class="sidebar-module sidebar-module-inset">
+            <h4>About</h4>
+            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+          </div>
+          <div class="sidebar-module">
+            <h4>Archives</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">March 2014</a></li>
+              <li><a href="#">February 2014</a></li>
+              <li><a href="#">January 2014</a></li>
+              <li><a href="#">December 2013</a></li>
+              <li><a href="#">November 2013</a></li>
+              <li><a href="#">October 2013</a></li>
+              <li><a href="#">September 2013</a></li>
+              <li><a href="#">August 2013</a></li>
+              <li><a href="#">July 2013</a></li>
+              <li><a href="#">June 2013</a></li>
+              <li><a href="#">May 2013</a></li>
+              <li><a href="#">April 2013</a></li>
+            </ol>
+          </div>
+          <div class="sidebar-module">
+            <h4>Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">GitHub</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Facebook</a></li>
+            </ol>
+          </div>
+        </div><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+    <footer class="blog-footer">
+      <p>Blog template built for <a href="http://www.bootcss.com/">Bootstrap</a> by <a href="#">@luna</a>.</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+{{moment.lang('zh-cn')}}
+<script type="text/javascript">
+ $(function(){
+   $("#navbar-link a").each(function(index){
+     $this = $(this)
+     if ($this[0].href == String(window.location)){
+       $this.parent().addClass('active') 
+     }
+   });
+ });
+</script>
+{% endblock %}

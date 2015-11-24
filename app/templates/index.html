@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="col-sm-8 blog-main">
+{% include "_posts.html" %}
+  <nav>
+    <ul class="pager">
+      <li><a href="#">Previous</a></li>
+      <li><a href="#">Next</a></li>
+    </ul>
+  </nav>
+
+</div>
+{% endblock %}
