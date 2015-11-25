@@ -10,7 +10,7 @@
 {% block title%}Luna-Blog{% endblock %}
 
 {% block navbar %}
-    <nav class="navbar navbar-inverse navbar-static-top">
+    <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -24,6 +24,20 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul id="navbar-link" class="nav navbar-nav">
             <li><a href="{{url_for('main.index')}}">Home</a></li>
+            <li><a href="{{url_for('main.post_about',title='about-me')}}">about me</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          {% if current_user.is_authenticated %}
+          <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{{url_for('admin.post')}}">写文章</a></li>
+              <li><a href="{{url_for('admin.logout')}}">log out</a></li>
+            </ul>
+          </li>
+          {%else%}
+            <li><a href="{{url_for('admin.login')}}">log in</a></li>
+          {%endif%}          
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -41,11 +55,12 @@
  <div class="blog-header">
       <div class="row">
       {%block page_content%} {% endblock %}
-
+      {% block sider_bar %}
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
           <div class="sidebar-module sidebar-module-inset">
-            <h4>About</h4>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+            <h4>About Luna</h4>
+            <p>欢迎来到到我的Blog</p>
+            <p>我是一个正在学习Python的新手，并不是一名程序员，我有我的工作。但是我非常喜欢编程，所以我利用的闲暇时间努力学习。</p>
           </div>
           <div class="sidebar-module">
             <h4>Archives</h4>
@@ -85,6 +100,7 @@
       </p>
     </footer>
 </div>
+{%endblock%}
 {% endblock %}
 
 {% block scripts %}

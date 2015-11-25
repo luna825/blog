@@ -5,10 +5,19 @@
     <p class="blog-post-date">{{ moment(post.timestamp).format('MMMM Do YYYY')}}</p>
      <p class="blog-post-meta"> Post by<a href="#">{{post.author.email}}</a></p>
      </div>
-	{% if post.body_html %}
-	{{post.body_html | safe }}
+    {% if digest %}
+		{% if post.body_html %}
+		{{post.body_html[:200] | striptags }}
+		{% else %}
+		{{ post.body[:200]}}
+		{% endif %}
+	<div class="blog-read-all"><a href="{{url_for('main.post',id=post.id)}}">阅读全文</a></div>
 	{% else %}
-	{{ post.body}}
+		{% if post.body_html %}
+		{{post.body_html | safe }}
+		{% else %}
+		{{ post.body}}
+		{% endif %}
 	{% endif %}
 </div><!-- /.blog-post -->
 {% endfor %}

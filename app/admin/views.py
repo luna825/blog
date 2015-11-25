@@ -16,6 +16,10 @@ def login():
 			return redirect(request.args.get('next') or url_for('main.index'))
 		flash('用户名或密码错误')
 	return render_template('admin/login.html',form = form)
+@admin.route('/logout')
+def logout():
+	logout_user()
+	return redirect(url_for('main.index'))	
 
 @admin.route('/post',methods=["GET","POST"])
 @login_required
@@ -27,4 +31,18 @@ def post():
 			author = current_user._get_current_object())
 		db.session.add(post)
 		return redirect(url_for('main.index'))
+	return render_template('admin/post.html',form=form)
+
+@admin.route('/edit-post/<int:id>',methods=["GET","POST"])
+@login_required
+def edit_post(id):
+	post = Post.query.get_or_404(id)
+	form = PostForm()
+	if form.validate_on_submit():
+		post.title = form.title.data
+		post.body = form.body.data
+		db.session.add(post)
+		return redirect(url_for('main.index'))
+	form.title.data = post.title
+	form.body.data = post.body
 	return render_template('admin/post.html',form=form)
