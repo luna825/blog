@@ -1,9 +1,9 @@
 {% for post in posts %}
 <div class="blog-post">
 	<div class="blog-head">
-    <h2 class="blog-post-title"><a href="{{url_for('main.post',id=post.id)}}">{{post.title}}</a></h2>
+    <h2 class="blog-post-title"><a href="{{url_for('main.post',id=post.id)}}">{{post.title.replace('-',' ') | title }}</a></h2>
     <p class="blog-post-date">{{ moment(post.timestamp).format('MMMM Do YYYY')}}</p>
-     <p class="blog-post-meta"> Post by<a href="#">{{post.author.email}}</a></p>
+     <p class="blog-post-meta"> Post by {{post.author.email}}</p>
      </div>
     {% if digest %}
 		{% if post.body_html %}
