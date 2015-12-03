@@ -46,3 +46,16 @@ def edit_post(id):
 	form.title.data = post.title
 	form.body.data = post.body
 	return render_template('admin/post.html',form=form)
+
+@admin.route('/moderate')
+@login_required
+def moderate():
+	posts = Post.query.all()
+	return render_template('admin/posts.html',posts=posts)
+
+@admin.route('/delete/<int:id>')
+@login_required
+def delete(id):
+	post = Post.query.get_or_404(id)
+	db.session.delete(post)
+	return redirect(url_for('admin.moderate'))
