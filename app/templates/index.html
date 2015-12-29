@@ -5,8 +5,8 @@
 {% include "_posts.html" %}
   <nav>
     <ul class="pager">
-      <li><a href="#">Previous</a></li>
-      <li><a href="#">Next</a></li>
+      <li {% if not pagination.has_prev %}class="disabled"{% endif%}><a href="{{url_for('main.index',page=pagination.page-1)}}">Previous</a></li>
+      <li {% if not pagination.has_next %}class="disabled"{% endif%}><a href="{{url_for('main.index',page=pagination.page+1)}}">Next</a></li>
     </ul>
   </nav>
 </div>
